@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Документация/Сервисы/Сервис News.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Сервис News"
             }
           }
         ]
@@ -179,8 +179,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8390bd92dbf4c774",
+  "active": "bc577571bb13f4c6",
   "lastOpenFiles": [
-    "News"
+    "README.md",
+    "Документация/Сервисы/Сервис News.md",
+    "Документация/Сервисы",
+    "Документация"
   ]
 }
