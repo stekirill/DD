@@ -1,6 +1,6 @@
 **Как запустить документацию?** <br/>
-1) Клонируем этот репозиторий(для удобного клонировая можно использовать [github_dekstop](https://desktop.github.com/download/)) <br/>
-1.1) Чтобы клонировать репозиторий, авторизируйтесь в github dekstop и склонируйте репозиторий по ссылке![image](https://github.com/user-attachments/assets/dc7590e2-48fb-4d9e-a98a-db947ee6f619)  <br/>
+1) Устанавливаем этот репозиторий(для удобного клонирования можно использовать [github_dekstop](https://desktop.github.com/download/)) <br/>
+1.1) Чтобы клонировать репозиторий, авторизируйтесь в github dekstop и нажмите кнопку clone repository, введите ссылку![image](https://github.com/user-attachments/assets/dc7590e2-48fb-4d9e-a98a-db947ee6f619)  <br/>
 
 2) Устанавливаем [obsidian](https://obsidian.md)<br/>
 
