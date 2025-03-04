@@ -181,7 +181,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 335.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -194,8 +194,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "405f4e31d73ce582",
+  "active": "8390bd92dbf4c774",
   "lastOpenFiles": [
+    "Документация/Сервисы/Админка",
     "Документация/Сервисы/News/Информация для маркетологов/Функционал бота/Настройки/Дайджест ко времени.md",
     "convert_to_pdf.py",
     "docs.pdf",
