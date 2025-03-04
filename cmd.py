@@ -19,13 +19,16 @@ def merge_md_to_pdf(directory, output_pdf):
     with open('temp.html', 'w', encoding='utf-8') as temp_file:
         temp_file.write(html_content)
 
+    # Указываем путь к wkhtmltopdf вручную
+    config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+
     # Конвертируем HTML в PDF
-    pdfkit.from_string(html_content, output_pdf)
+    pdfkit.from_string(html_content, output_pdf, configuration=config)
 
     print(f"PDF успешно создан: {output_pdf}")
 
 # Укажите путь к директории с .md файлами и имя выходного PDF
-directory_with_md = "Документация"
+directory_with_md = "Документация\\Сервисы\\News"
 output_pdf_file = "output.pdf"
 
 # Вызов функции
