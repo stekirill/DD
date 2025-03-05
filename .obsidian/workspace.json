@@ -13,10 +13,10 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "media/Pasted image 20250305142153.png"
+                "file": "media/Админка/command_init_settings.png"
               },
               "icon": "lucide-image",
-              "title": "Pasted image 20250305142153"
+              "title": "command_init_settings"
             }
           },
           {
@@ -25,10 +25,10 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "media/Pasted image 20250305142153.png"
+                "file": "media/Админка/command_init_settings.png"
               },
               "icon": "lucide-image",
-              "title": "Pasted image 20250305142153"
+              "title": "command_init_settings"
             }
           },
           {
@@ -37,22 +37,22 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "media/Pasted image 20250305142153.png"
+                "file": "media/Админка/link_to_service.png"
               },
               "icon": "lucide-image",
-              "title": "Pasted image 20250305142153"
+              "title": "link_to_service"
             }
           },
           {
-            "id": "8d42724c6d253824",
+            "id": "3fc96135fa63da33",
             "type": "leaf",
             "state": {
               "type": "image",
               "state": {
-                "file": "media/Pasted image 20250305142153.png"
+                "file": "media/Админка/command_init_settings.png"
               },
               "icon": "lucide-image",
-              "title": "Pasted image 20250305142153"
+              "title": "command_init_settings"
             }
           }
         ],
@@ -214,18 +214,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8390bd92dbf4c774",
+  "active": "3fc96135fa63da33",
   "lastOpenFiles": [
+    "media/Админка/home_page.png",
+    "media/Админка/login_window.png",
+    "media/Админка/link_to_service.png",
+    "media/Админка/command_init_settings.png",
+    "media/Админка",
+    "media/Без названия.canvas",
+    "media/News/adminer.png",
+    "media/News",
     "Документация/Сервисы/Админка/Информация для бэкэнда Админки/Как запустить проект в первый раз.md",
-    "media/Pasted image 20250305142153.png",
     "Документация/Сервисы/News/Сервис News.md",
-    "media/Pasted image 20250305142449.png",
     "conflict-files-obsidian-git.md",
-    "media/adminer.png",
     "media",
-    "media/Pasted image 20250305142713.png",
     "Pasted image 20250302005651.png",
-    "media/Pasted image 20250305142520.png",
     "README.md",
     "Документация/Сервисы/News/Информация для бэкэнда News/Как запустить проект в первый раз.md",
     "Документация/Сервисы/News/Информация для маркетологов/Общая информация.md",
@@ -245,8 +248,6 @@
     "callback.pdf",
     "menu.pdf",
     "channels.pdf",
-    "callbacks.pdf",
-    "handlers.pdf",
     "Документация/Сервисы/News/Хендлеры/Коллбэки/Меню/Регулировка настроек.md",
     "Документация/Сервисы/News/Хендлеры/Коллбэки/Меню/Регулировка каналов.md",
     "Документация/Сервисы/News/Хендлеры/Коллбэки/Меню/Общая информация.md",
