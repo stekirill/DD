@@ -196,10 +196,11 @@
   },
   "active": "8390bd92dbf4c774",
   "lastOpenFiles": [
+    "media/Админка/channels/channels_functions.png",
+    "media/Админка/users/users_buttons_statistic.png",
     "media/Админка/channels",
     "media/Админка/home",
     "media/Админка/users/users_dates.png",
-    "media/Админка/users/users_buttons_statistic.png",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Каналы.md",
     "media/Админка/users",
     "media/Админка/channels/channels_list.png",
@@ -241,7 +242,6 @@
     "Документация/Сервисы/News/Воркеры",
     "media/Админка",
     "media/Без названия.canvas",
-    "media/News",
-    "media"
+    "media/News"
   ]
 }
