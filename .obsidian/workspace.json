@@ -11,12 +11,14 @@
             "id": "43c55877c55d29ba",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "docs.pdf"
+                "file": "README.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "docs"
+              "icon": "lucide-file",
+              "title": "README"
             }
           },
           {
@@ -191,8 +193,9 @@
   },
   "active": "43c55877c55d29ba",
   "lastOpenFiles": [
-    "Страница Воркеры.pdf",
     "docs.pdf",
+    "README.md",
+    "Страница Воркеры.pdf",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Воркеры.md",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Главная.md",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Каналы.md",
@@ -216,7 +219,6 @@
     "venv/Lib/site-packages/pdfkit/__pycache__/api.cpython-312.pyc",
     "venv/Lib/site-packages/pdfkit-1.0.0.dist-info/top_level.txt",
     "venv/Lib/site-packages/pdfkit-1.0.0.dist-info/WHEEL",
-    "venv/Lib/site-packages/pdfkit-1.0.0.dist-info/RECORD",
     "media/Админка/workers/workers_table.png",
     "media/Админка/constructor/construcotr_wip.png",
     "Pasted image 20250309223827.png",
@@ -236,7 +238,6 @@
     "Документация/Сервисы/Админка/Информация для бэкэнда Админки/Как запустить проект в первый раз.md",
     "Документация/Сервисы/News/Информация для бэкэнда News/Как запустить проект в первый раз.md",
     "conflict-files-obsidian-git.md",
-    "Документация/Сервисы/News/Воркеры/Функционал/Сообщения/Сокращение текста.md",
     "media/Без названия.canvas"
   ]
 }
