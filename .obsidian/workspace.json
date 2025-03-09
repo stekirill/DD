@@ -196,6 +196,11 @@
   },
   "active": "8390bd92dbf4c774",
   "lastOpenFiles": [
+    "media/Админка/stats/stats_right_pannel.png",
+    "media/Админка/stats/stats_table.png",
+    "media/Админка/stats/stats_paid_filter.png",
+    "media/Админка/stats/stats_utm.png",
+    "media/Админка/stats/stats_dates.png",
     "media/Админка/stats",
     "media/Админка/stats/stats_view.png",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Каналы.md",
@@ -207,11 +212,7 @@
     "media/Админка/users/users_dates.png",
     "media/Админка/users",
     "media/Админка/channels/channels_list.png",
-    "media/Админка/channels/channels_view.png",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Пользователи.md",
-    "media/Админка/users/users_ordering.png",
-    "media/Админка/users/users_search.png",
-    "media/Админка/users/users_status_filter.png",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Главная.md",
     "Документация/Сервисы/Админка/Информация для маркетологов/Общая информация.md",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Конструктор сообщений.md",
@@ -241,7 +242,6 @@
     "Документация/Сервисы/News/Воркеры/Функционал",
     "Документация/Сервисы/News/Воркеры",
     "media/Админка",
-    "media/Без названия.canvas",
-    "media/News"
+    "media/Без названия.canvas"
   ]
 }
