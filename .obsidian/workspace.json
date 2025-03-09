@@ -194,21 +194,24 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4b88723c0eec0671",
+  "active": "8390bd92dbf4c774",
   "lastOpenFiles": [
-    "Документация/Сервисы/Админка/Информация для маркетологов/Страница Пользователи.md",
-    "media/Админка/users_ordering.png",
-    "media/Админка/users_search.png",
-    "media/Админка/users_status_filter.png",
-    "media/Админка/login_window.png",
-    "media/Админка/users_onboarding.png",
-    "Документация/Сервисы/Админка/Информация для маркетологов/Страница Главная.md",
-    "media/Админка/users_dates.png",
-    "media/Админка/users_table.png",
-    "media/Админка/users_view.png",
-    "media/Админка/users_utm.png",
-    "media/Админка/users_buttons_statistic.png",
+    "media/Админка/channels",
+    "media/Админка/home",
+    "media/Админка/users/users_dates.png",
+    "media/Админка/users/users_buttons_statistic.png",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Каналы.md",
+    "media/Админка/users",
+    "media/Админка/channels/channels_list.png",
+    "media/Админка/channels/channels_view.png",
+    "Документация/Сервисы/Админка/Информация для маркетологов/Страница Пользователи.md",
+    "media/Админка/users/users_ordering.png",
+    "media/Админка/users/users_search.png",
+    "media/Админка/users/users_status_filter.png",
+    "media/Админка/login_window.png",
+    "media/Админка/users/users_onboarding.png",
+    "Документация/Сервисы/Админка/Информация для маркетологов/Страница Главная.md",
+    "media/Админка/users/users_table.png",
     "Документация/Сервисы/Админка/Информация для маркетологов/Общая информация.md",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Конструктор сообщений.md",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Статистика.md",
@@ -239,8 +242,6 @@
     "media/Админка",
     "media/Без названия.canvas",
     "media/News",
-    "media",
-    "Документация/Сервисы/Админка/Информация для бэкэнда Админки",
-    "Документация/Сервисы/Админка"
+    "media"
   ]
 }
