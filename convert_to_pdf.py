@@ -112,19 +112,10 @@ def merge_md_to_pdf(directory, output_pdf):
     
     # Конвертируем в HTML
     try:
-        # Дополнительная опция strict для обработки смешанного синтаксиса
-        html_content = pypandoc.convert_text(
-            combined_content, 
-            'html', 
-            format='markdown', 
-            extra_args=['--standalone', '--wrap=none']
-        )
+        html_content = pypandoc.convert_text(combined_content, 'html', format='markdown')
         
         # Исправляем смешанный синтаксис в сгенерированном HTML
         html_content = fix_mixed_syntax(html_content)
-        
-        # Дополнительно обрабатываем HTML, чтобы убрать возможные артефакты
-        html_content = re.sub(r'<p>#{1,6}\s*</p>', '', html_content)  # Убираем пустые параграфы с # символами
         
         html_content = f"""
         <html>
@@ -137,28 +128,6 @@ def merge_md_to_pdf(directory, output_pdf):
                 img {{
                     max-width: 100%;
                     height: auto;
-                }}
-                h1, h2, h3, h4, h5, h6 {{
-                    color: #2c3e50;
-                    margin-top: 1.5em;
-                    margin-bottom: 0.5em;
-                }}
-                pre {{
-                    background-color: #f8f8f8;
-                    padding: 10px;
-                    border-radius: 5px;
-                    overflow-x: auto;
-                }}
-                code {{
-                    background-color: #f8f8f8;
-                    padding: 2px 4px;
-                    border-radius: 3px;
-                }}
-                ul, ol {{
-                    padding-left: 20px;
-                }}
-                li {{
-                    margin-bottom: 5px;
                 }}
             </style>
         </head>
