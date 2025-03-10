@@ -11,14 +11,10 @@
             "id": "43c55877c55d29ba",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Документация/Сервисы/Админка/Информация для маркетологов/Страница Главная.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Страница Главная"
+              "title": "Новая вкладка"
             }
           }
         ]
