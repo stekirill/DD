@@ -88,50 +88,6 @@ def fix_mixed_syntax(content):
     # Ищем другие случаи, когда Markdown синтаксис внутри HTML тегов
     content = re.sub(r'(<li>.*?)(#{1,6}\s+[^<]+)(.*?</li>)', r'\1\3\n\n\2', content)
     
-    # Исправляем случаи типа "### \n\n Payment"
-    content = re.sub(r'#{1,6}\s*\n+\s*([A-Za-z0-9]+)', r'<h3>\1</h3>', content)
-    
-    # Исправляем случаи, когда заголовок находится между тегами списка
-    content = re.sub(r'(</ul>)\s*\n+\s*(#{1,6})\s*\n+\s*([A-Za-z0-9]+)\s*\n+\s*(<\/ul>|<ul>)', 
-                     r'\1\n\n<h3>\3</h3>\n\n\4', content)
-    
-    # Общий случай для всех заголовков с разрывами строк
-    content = re.sub(r'(#{1,6})\s*\n+\s*([A-Za-z0-9][A-Za-z0-9 ]*)', r'<h3>\2</h3>', content)
-    
-    # Исправляем случаи "###\n\nPayment\n\n</ul>"
-    content = re.sub(r'(#{1,6})\s*\n+\s*([A-Za-z0-9][A-Za-z0-9 ]*)\s*\n+\s*(</ul>)', 
-                     r'<h3>\2</h3>\n\n\3', content)
-    
-    # Проверяем и исправляем оставшиеся Markdown заголовки, которые не были преобразованы
-    content = re.sub(r'<p>(#{1,6}\s+.*?)</p>', r'<h3>\1</h3>', content)
-    
-    # Чистим HTML-код от ненужных символов решетки в заголовках
-    content = re.sub(r'<h[1-6]>#{1,6}\s*(.*?)</h[1-6]>', r'<h3>\1</h3>', content)
-    
-    return content
-
-
-def normalize_markdown(content):
-    """Нормализует Markdown контент перед передачей в pandoc"""
-    
-    # Исправляем заголовки с разрывами строк
-    content = re.sub(r'(#{1,6})\s*\n+\s*([A-Za-z0-9][A-Za-z0-9 ]*)', r'\1 \2', content)
-    
-    # Исправляем отсутствие пробела после символов # в заголовках
-    content = re.sub(r'(#{1,6})([A-Za-z0-9])', r'\1 \2', content)
-    
-    # Исправляем специфические случаи "###\n\nPayment"
-    content = re.sub(r'(#{1,6})\s*\n+\s*([A-Za-z0-9][A-Za-z0-9 ]*)', r'\1 \2', content)
-    
-    # Исправляем заголовки внутри HTML тегов
-    content = re.sub(r'(<.*?>)(#{1,6}\s+.*?)(</.*?>)', r'\1\n\n\2\n\n\3', content)
-    
-    # Исправляем случаи, когда заголовок находится сразу после закрывающего тега
-    content = re.sub(r'(</[a-z]+>)\s*(#{1,6}\s+)', r'\1\n\n\2', content)
-    
-    # Исправляем случаи с пустыми заголовками
-    content = re.sub(r'(#{1,6})\s*$', r'', content, flags=re.MULTILINE)
-    
     return content
 
 
@@ -146,27 +102,16 @@ def merge_md_to_pdf(directory, output_pdf):
     for md_file in md_files:
         with open(md_file, 'r', encoding='utf-8') as file:
             content = file.read()
-            # Нормализуем Markdown
-            content = normalize_markdown(content)
             # Обрабатываем теги изображений
             content = process_image_tags(content)
             combined_content += content + "\n\n"
     
     # Конвертируем в HTML
     try:
-        # Дополнительная опция strict для обработки смешанного синтаксиса
-        html_content = pypandoc.convert_text(
-            combined_content, 
-            'html', 
-            format='markdown', 
-            extra_args=['--standalone', '--wrap=none']
-        )
+        html_content = pypandoc.convert_text(combined_content, 'html', format='markdown')
         
         # Исправляем смешанный синтаксис в сгенерированном HTML
         html_content = fix_mixed_syntax(html_content)
-        
-        # Дополнительно обрабатываем HTML, чтобы убрать возможные артефакты
-        html_content = re.sub(r'<p>#{1,6}\s*</p>', '', html_content)  # Убираем пустые параграфы с # символами
         
         html_content = f"""
         <html>
@@ -179,28 +124,6 @@ def merge_md_to_pdf(directory, output_pdf):
                 img {{
                     max-width: 100%;
                     height: auto;
-                }}
-                h1, h2, h3, h4, h5, h6 {{
-                    color: #2c3e50;
-                    margin-top: 1.5em;
-                    margin-bottom: 0.5em;
-                }}
-                pre {{
-                    background-color: #f8f8f8;
-                    padding: 10px;
-                    border-radius: 5px;
-                    overflow-x: auto;
-                }}
-                code {{
-                    background-color: #f8f8f8;
-                    padding: 2px 4px;
-                    border-radius: 3px;
-                }}
-                ul, ol {{
-                    padding-left: 20px;
-                }}
-                li {{
-                    margin-bottom: 5px;
                 }}
             </style>
         </head>
