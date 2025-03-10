@@ -76,30 +76,6 @@ def process_image_tags(content):
     return processed_content
 
 
-def normalize_markdown(content):
-    """Нормализует Markdown контент перед передачей в pandoc"""
-    
-    # Исправляем заголовки с разрывами строк
-    content = re.sub(r'(#{1,6})\s*\n+\s*([A-Za-z0-9][A-Za-z0-9 ]*)', r'\1 \2', content)
-    
-    # Исправляем отсутствие пробела после символов # в заголовках
-    content = re.sub(r'(#{1,6})([A-Za-z0-9])', r'\1 \2', content)
-    
-    # Исправляем специфические случаи "###\n\nPayment"
-    content = re.sub(r'(#{1,6})\s*\n+\s*([A-Za-z0-9][A-Za-z0-9 ]*)', r'\1 \2', content)
-    
-    # Исправляем заголовки внутри HTML тегов
-    content = re.sub(r'(<.*?>)(#{1,6}\s+.*?)(</.*?>)', r'\1\n\n\2\n\n\3', content)
-    
-    # Исправляем случаи, когда заголовок находится сразу после закрывающего тега
-    content = re.sub(r'(</[a-z]+>)\s*(#{1,6}\s+)', r'\1\n\n\2', content)
-    
-    # Исправляем случаи с пустыми заголовками
-    content = re.sub(r'(#{1,6})\s*$', r'', content, flags=re.MULTILINE)
-    
-    return content
-
-
 def fix_mixed_syntax(content):
     """Исправляет смешанный синтаксис HTML и Markdown"""
     # Исправляем случаи, когда Markdown заголовки находятся внутри HTML тегов
@@ -130,8 +106,6 @@ def merge_md_to_pdf(directory, output_pdf):
     for md_file in md_files:
         with open(md_file, 'r', encoding='utf-8') as file:
             content = file.read()
-            # Нормализуем Markdown
-            content = normalize_markdown(content)
             # Обрабатываем теги изображений
             content = process_image_tags(content)
             combined_content += content + "\n\n"
@@ -242,7 +216,7 @@ def create_multiple_pdfs():
             "output": "news_маркетинг.pdf"
         },
         {
-            "directory": os.path.join("Документация", "Сервисы", "News", "Информация для бэкэнда"),
+            "directory": os.path.join("Документация", "Сервисы", "News", "Информация для бэкэнда News"),
             "output": "news_бэкэнд.pdf"
         }
     ]
