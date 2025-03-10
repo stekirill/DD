@@ -76,6 +76,30 @@ def process_image_tags(content):
     return processed_content
 
 
+def normalize_markdown(content):
+    """Нормализует Markdown контент перед передачей в pandoc"""
+    
+    # Исправляем заголовки с разрывами строк
+    content = re.sub(r'(#{1,6})\s*\n+\s*([A-Za-z0-9][A-Za-z0-9 ]*)', r'\1 \2', content)
+    
+    # Исправляем отсутствие пробела после символов # в заголовках
+    content = re.sub(r'(#{1,6})([A-Za-z0-9])', r'\1 \2', content)
+    
+    # Исправляем специфические случаи "###\n\nPayment"
+    content = re.sub(r'(#{1,6})\s*\n+\s*([A-Za-z0-9][A-Za-z0-9 ]*)', r'\1 \2', content)
+    
+    # Исправляем заголовки внутри HTML тегов
+    content = re.sub(r'(<.*?>)(#{1,6}\s+.*?)(</.*?>)', r'\1\n\n\2\n\n\3', content)
+    
+    # Исправляем случаи, когда заголовок находится сразу после закрывающего тега
+    content = re.sub(r'(</[a-z]+>)\s*(#{1,6}\s+)', r'\1\n\n\2', content)
+    
+    # Исправляем случаи с пустыми заголовками
+    content = re.sub(r'(#{1,6})\s*$', r'', content, flags=re.MULTILINE)
+    
+    return content
+
+
 def fix_mixed_syntax(content):
     """Исправляет смешанный синтаксис HTML и Markdown"""
     # Исправляем случаи, когда Markdown заголовки находятся внутри HTML тегов
@@ -98,20 +122,35 @@ def merge_md_to_pdf(directory, output_pdf):
             if file.endswith('.md'):
                 md_files.append(os.path.join(root, file))
     
+    if not md_files:
+        print(f"ПРЕДУПРЕЖДЕНИЕ: В директории '{directory}' не найдено Markdown файлов.")
+        return False
+    
     combined_content = ""
     for md_file in md_files:
         with open(md_file, 'r', encoding='utf-8') as file:
             content = file.read()
+            # Нормализуем Markdown
+            content = normalize_markdown(content)
             # Обрабатываем теги изображений
             content = process_image_tags(content)
             combined_content += content + "\n\n"
     
     # Конвертируем в HTML
     try:
-        html_content = pypandoc.convert_text(combined_content, 'html', format='markdown')
+        # Дополнительная опция strict для обработки смешанного синтаксиса
+        html_content = pypandoc.convert_text(
+            combined_content, 
+            'html', 
+            format='markdown', 
+            extra_args=['--standalone', '--wrap=none']
+        )
         
         # Исправляем смешанный синтаксис в сгенерированном HTML
         html_content = fix_mixed_syntax(html_content)
+        
+        # Дополнительно обрабатываем HTML, чтобы убрать возможные артефакты
+        html_content = re.sub(r'<p>#{1,6}\s*</p>', '', html_content)  # Убираем пустые параграфы с # символами
         
         html_content = f"""
         <html>
@@ -125,6 +164,28 @@ def merge_md_to_pdf(directory, output_pdf):
                     max-width: 100%;
                     height: auto;
                 }}
+                h1, h2, h3, h4, h5, h6 {{
+                    color: #2c3e50;
+                    margin-top: 1.5em;
+                    margin-bottom: 0.5em;
+                }}
+                pre {{
+                    background-color: #f8f8f8;
+                    padding: 10px;
+                    border-radius: 5px;
+                    overflow-x: auto;
+                }}
+                code {{
+                    background-color: #f8f8f8;
+                    padding: 2px 4px;
+                    border-radius: 3px;
+                }}
+                ul, ol {{
+                    padding-left: 20px;
+                }}
+                li {{
+                    margin-bottom: 5px;
+                }}
             </style>
         </head>
         <body>
@@ -134,7 +195,8 @@ def merge_md_to_pdf(directory, output_pdf):
         """
         
         # Сохраняем HTML для отладки
-        with open('temp.html', 'w', encoding='utf-8') as temp_file:
+        html_temp_file = f"temp_{os.path.basename(output_pdf).replace('.pdf', '.html')}"
+        with open(html_temp_file, 'w', encoding='utf-8') as temp_file:
             temp_file.write(html_content)
         
         try:
@@ -154,20 +216,93 @@ def merge_md_to_pdf(directory, output_pdf):
                 }
             )
             print(f"PDF успешно создан: {output_pdf}")
+            return True
         except Exception as e:
             print(f"Ошибка при создании PDF: {e}")
             print("Проверьте, установлен ли wkhtmltopdf и корректен ли путь к нему")
+            return False
     except Exception as e:
         print(f"Ошибка при конвертации Markdown в HTML: {e}")
+        return False
+
+
+def create_multiple_pdfs():
+    """Создает несколько PDF из разных директорий"""
+    conversions = [
+        {
+            "directory": os.path.join("Документация", "Сервисы", "Админка", "Информация для маркетологов"),
+            "output": "админка_маркетинг.pdf"
+        },
+        {
+            "directory": os.path.join("Документация", "Сервисы", "Админка", "Информация для бэкэнда Админки"),
+            "output": "админка_бэкэнд.pdf"
+        },
+        {
+            "directory": os.path.join("Документация", "Сервисы", "News", "Информация для маркетологов"),
+            "output": "news_маркетинг.pdf"
+        },
+        {
+            "directory": os.path.join("Документация", "Сервисы", "News", "Информация для бэкэнда"),
+            "output": "news_бэкэнд.pdf"
+        }
+    ]
+    
+    successful = 0
+    failed = 0
+    
+    for conversion in conversions:
+        directory = conversion["directory"]
+        output = conversion["output"]
+        
+        print(f"\n=== Обработка: {directory} -> {output} ===")
+        
+        if not os.path.exists(directory):
+            print(f"ОШИБКА: Директория '{directory}' не существует. Пропускаем.")
+            failed += 1
+            continue
+        
+        if merge_md_to_pdf(directory, output):
+            successful += 1
+        else:
+            failed += 1
+    
+    print(f"\n=== Итоги конвертации ===")
+    print(f"Успешно: {successful}")
+    print(f"С ошибками: {failed}")
+    print(f"Всего: {successful + failed}")
 
 
 # Проверяем, запущен ли скрипт напрямую
 if __name__ == "__main__":
-    directory_with_md = "Документация"
-    output_pdf_file = "docs.pdf"
+    # Спрашиваем у пользователя, какой режим использовать
+    print("Выберите режим работы:")
+    print("1. Создать один PDF из всей документации")
+    print("2. Создать несколько PDF из разных директорий")
     
-    if not os.path.exists(directory_with_md):
-        print(f"ОШИБКА: Директория '{directory_with_md}' не найдена.")
-        directory_with_md = input("Введите путь к директории с Markdown файлами: ")
-    
-    merge_md_to_pdf(directory_with_md, output_pdf_file)
+    try:
+        choice = int(input("Введите номер режима (1 или 2): "))
+        
+        if choice == 1:
+            directory_with_md = "Документация"
+            output_pdf_file = "docs.pdf"
+            
+            if not os.path.exists(directory_with_md):
+                print(f"ОШИБКА: Директория '{directory_with_md}' не найдена.")
+                directory_with_md = input("Введите путь к директории с Markdown файлами: ")
+            
+            merge_md_to_pdf(directory_with_md, output_pdf_file)
+            
+        elif choice == 2:
+            create_multiple_pdfs()
+            
+        else:
+            print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
+            
+    except ValueError:
+        print("Ошибка ввода. Пожалуйста, введите число.")
+        
+    except KeyboardInterrupt:
+        print("\nПрограмма прервана пользователем.")
+        
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
