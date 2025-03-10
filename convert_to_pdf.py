@@ -178,7 +178,7 @@ def create_multiple_pdfs():
         },
         {
             "directory": os.path.join("Документация", "Сервисы", "Админка", "Информация для бэкэнда Админки"),
-            "output": "админка_бэкэнд.pdf"
+            "output": "админка_бэкенд.pdf"
         },
         # {
         #     "directory": os.path.join("Документация", "Сервисы", "News", "Информация для маркетологов"),
@@ -186,7 +186,7 @@ def create_multiple_pdfs():
         # },
         {
             "directory": os.path.join("Документация", "Сервисы", "News", "Информация для бэкэнда News"),
-            "output": "news_бэкэнд.pdf"
+            "output": "news_бэкенд.pdf"
         }
     ]
     
