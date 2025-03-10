@@ -179,8 +179,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "43c55877c55d29ba",
+  "active": "989c4093cd17a9fe",
   "lastOpenFiles": [
+    "temp.html",
+    "pandoc-3.6.3-windows-x86_64.msi",
     "Документация/Сервисы/News/Информация для бэкэнда News/Взаимодействие с базой данных.md",
     "Документация/Сервисы/News/Информация для бэкэнда News/Информация для бэкэнда News.md",
     "Документация/Сервисы/News/Информация для бэкэнда News/Требования к бэкэнду.md",
@@ -214,7 +216,6 @@
     "venv/Lib/site-packages/pdfkit/__pycache__/configuration.cpython-312.pyc",
     "venv/Lib/site-packages/pdfkit/__pycache__/api.cpython-312.pyc",
     "venv/Lib/site-packages/pdfkit-1.0.0.dist-info/top_level.txt",
-    "venv/Lib/site-packages/pdfkit-1.0.0.dist-info/WHEEL",
     "media/Админка/workers/workers_table.png",
     "media/Админка/constructor/construcotr_wip.png",
     "Pasted image 20250309223827.png",
@@ -226,7 +227,6 @@
     "media/Админка/openai/openai_search.png",
     "Документация/Сервисы/News/Информация для маркетологов/Общая информация.md",
     "media/Админка/invoices/invoices_ordering_summ.png",
-    "Панель администратора.md",
     "media/Без названия.canvas"
   ]
 }
