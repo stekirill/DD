@@ -175,8 +175,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "989c4093cd17a9fe",
+  "active": "8390bd92dbf4c774",
   "lastOpenFiles": [
+    "Документация/Сервисы/Админка/Информация для маркетологов/Страница Главная.md",
     "temp.html",
     "pandoc-3.6.3-windows-x86_64.msi",
     "Документация/Сервисы/News/Информация для бэкэнда News/Взаимодействие с базой данных.md",
@@ -198,7 +199,6 @@
     "docs.pdf",
     "Страница Воркеры.pdf",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Воркеры.md",
-    "Документация/Сервисы/Админка/Информация для маркетологов/Страница Главная.md",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Каналы.md",
     "Документация/Сервисы/Админка/Информация для маркетологов/Страница Конструктор сообщений.md",
     "Документация/Сервисы/News/Информация для маркетологов/Функционал бота/Настройки/Сокращенный текст новостей.md",
@@ -211,7 +211,6 @@
     "venv/Lib/site-packages/pdfkit/__pycache__/pdfkit.cpython-312.pyc",
     "venv/Lib/site-packages/pdfkit/__pycache__/configuration.cpython-312.pyc",
     "venv/Lib/site-packages/pdfkit/__pycache__/api.cpython-312.pyc",
-    "venv/Lib/site-packages/pdfkit-1.0.0.dist-info/top_level.txt",
     "media/Админка/workers/workers_table.png",
     "media/Админка/constructor/construcotr_wip.png",
     "Pasted image 20250309223827.png",

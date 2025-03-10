@@ -76,6 +76,21 @@ def process_image_tags(content):
     return processed_content
 
 
+def fix_mixed_syntax(content):
+    """Исправляет смешанный синтаксис HTML и Markdown"""
+    # Исправляем случаи, когда Markdown заголовки находятся внутри HTML тегов
+    # Например: <li><strong>FeedBack</strong> ### 2) Описание таблиц</li>
+    content = re.sub(r'(</strong>)\s+(#{1,6}\s+[^<]+)(<)', r'\1</li>\n\n\2\n\n<li>\3', content)
+    
+    # Исправляем случаи с ### Referral</li>
+    content = re.sub(r'(#{1,6}\s+[^<]+)(</li>)', r'\1\n\2', content)
+    
+    # Ищем другие случаи, когда Markdown синтаксис внутри HTML тегов
+    content = re.sub(r'(<li>.*?)(#{1,6}\s+[^<]+)(.*?</li>)', r'\1\3\n\n\2', content)
+    
+    return content
+
+
 def merge_md_to_pdf(directory, output_pdf):
     md_files = []
     for root, dirs, files in os.walk(directory):
@@ -92,44 +107,67 @@ def merge_md_to_pdf(directory, output_pdf):
             combined_content += content + "\n\n"
     
     # Конвертируем в HTML
-    html_content = pypandoc.convert_text(combined_content, 'html', format='markdown')
-    
-    html_content = f"""
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <style>
-            body {{
-                font-family: "DejaVu Sans", sans-serif;
-            }}
-            img {{
-                max-width: 100%;
-                height: auto;
-            }}
-        </style>
-    </head>
-    <body>
-        {html_content}
-    </body>
-    </html>
-    """
-    
-    # Сохраняем HTML для отладки
-    with open('temp.html', 'w', encoding='utf-8') as temp_file:
-        temp_file.write(html_content)
-    
-    config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
-    pdfkit.from_string(
-        html_content, 
-        output_pdf, 
-        configuration=config, 
-        options={
-            'encoding': 'UTF-8',
-            'enable-local-file-access': True
-        }
-    )
+    try:
+        html_content = pypandoc.convert_text(combined_content, 'html', format='markdown')
+        
+        # Исправляем смешанный синтаксис в сгенерированном HTML
+        html_content = fix_mixed_syntax(html_content)
+        
+        html_content = f"""
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                body {{
+                    font-family: "DejaVu Sans", sans-serif;
+                }}
+                img {{
+                    max-width: 100%;
+                    height: auto;
+                }}
+            </style>
+        </head>
+        <body>
+            {html_content}
+        </body>
+        </html>
+        """
+        
+        # Сохраняем HTML для отладки
+        with open('temp.html', 'w', encoding='utf-8') as temp_file:
+            temp_file.write(html_content)
+        
+        try:
+            # Пытаемся найти wkhtmltopdf автоматически
+            config = None
+            wkhtmltopdf_path = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+            if os.path.exists(wkhtmltopdf_path):
+                config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
+            
+            pdfkit.from_string(
+                html_content, 
+                output_pdf, 
+                configuration=config, 
+                options={
+                    'encoding': 'UTF-8',
+                    'enable-local-file-access': True
+                }
+            )
+            print(f"PDF успешно создан: {output_pdf}")
+        except Exception as e:
+            print(f"Ошибка при создании PDF: {e}")
+            print("Проверьте, установлен ли wkhtmltopdf и корректен ли путь к нему")
+    except Exception as e:
+        print(f"Ошибка при конвертации Markdown в HTML: {e}")
 
-directory_with_md = "Документация"
-output_pdf_file = "docs.pdf"
 
-merge_md_to_pdf(directory_with_md, output_pdf_file)
+# Проверяем, запущен ли скрипт напрямую
+if __name__ == "__main__":
+    directory_with_md = "Документация"
+    output_pdf_file = "docs.pdf"
+    
+    if not os.path.exists(directory_with_md):
+        print(f"ОШИБКА: Директория '{directory_with_md}' не найдена.")
+        directory_with_md = input("Введите путь к директории с Markdown файлами: ")
+    
+    merge_md_to_pdf(directory_with_md, output_pdf_file)
