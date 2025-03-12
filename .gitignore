@@ -3,7 +3,6 @@ __pycache__
 venv
 .idea
 config.py
-session_name.session
 /accounts/
 /eurohoster.ppk
 logs/
